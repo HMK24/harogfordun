@@ -1,0 +1,33 @@
+.section {
+  background-color: var(--color-white);
+  padding: 80px 24px;
+  scroll-margin-top: var(--navbar-height);
+}
+
+.card {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 40px 0;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 16px;
+  }
+
+  .card {
+    padding: 32px 0;
+  }
+
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+}

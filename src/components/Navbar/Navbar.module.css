@@ -1,0 +1,176 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  height: var(--navbar-height);
+  padding: 0 24px;
+}
+
+/* Logo with flanking gold lines */
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logoLine {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background-color: var(--color-border-gold);
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-gold);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Desktop nav links */
+.desktopLinks {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLink {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-dark);
+  transition: color 200ms;
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: var(--color-gold);
+}
+
+/* CTA Button */
+.ctaButton {
+  display: inline-block;
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 10px 24px;
+  border-radius: 4px;
+  border: 1px solid var(--color-gold);
+  transition: background-color 200ms;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ctaButton:hover {
+  background-color: var(--color-gold-hover);
+  border-color: var(--color-gold-hover);
+}
+
+/* Hamburger — hidden on desktop */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-dark);
+  padding: 4px;
+}
+
+/* Mobile overlay — hidden by default, managed by AnimatePresence */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background-color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-dark);
+  padding: 4px;
+}
+
+.overlayLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.overlayLink {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-dark);
+  transition: color 200ms;
+}
+
+.overlayLink:hover {
+  color: var(--color-gold);
+}
+
+.overlayCta {
+  display: inline-block;
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 14px 40px;
+  border-radius: 4px;
+  border: 1px solid var(--color-gold);
+  margin-top: 16px;
+  transition: background-color 200ms;
+}
+
+.overlayCta:hover {
+  background-color: var(--color-gold-hover);
+  border-color: var(--color-gold-hover);
+}
+
+/* Mobile breakpoint */
+@media (max-width: 1023px) {
+  .desktopLinks {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .logoLine {
+    width: 24px;
+  }
+}
