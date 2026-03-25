@@ -74,7 +74,7 @@ interface StreetInputProps {
   hasError: boolean
 }
 
-function StreetInput({ className, placeholder, value, onChange, onBlur, name, hasError }: StreetInputProps) {
+function StreetInput({ className, placeholder, value, onChange, onBlur, name }: StreetInputProps) {
   const [focused, setFocused] = useState(false)
   const [inputVal, setInputVal] = useState(value)
   const suggestions = useAddressAutocomplete(inputVal)
@@ -118,7 +118,7 @@ function StreetInput({ className, placeholder, value, onChange, onBlur, name, ha
 }
 
 // Shared Verkefni dropdown
-function VerkefniSelect({ register, errors, hasPlaceholder }: {
+function VerkefniSelect({ register, errors }: {
   register: FieldProps['register']
   errors: FieldProps['errors']
   hasPlaceholder?: boolean
