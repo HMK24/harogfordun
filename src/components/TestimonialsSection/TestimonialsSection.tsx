@@ -5,7 +5,7 @@ import TestimonialCard from '../TestimonialCard/TestimonialCard'
 import ContactForm from '../ContactForm/ContactForm'
 import styles from './TestimonialsSection.module.css'
 
-const testimonials = [
+const initialTestimonials = [
   {
     quote: '„Þær voru algjörlega frábærar! Ég var í skýjunum með förðunina og harið og brúðkaupsdagurinn var alveg einstakur."',
     author: 'Anna S.',
@@ -23,6 +23,7 @@ const testimonials = [
 const AUTO_SLIDE_MS = 6000
 
 export default function TestimonialsSection() {
+  const [testimonials, setTestimonials] = useState(initialTestimonials)
   const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(1)
 
@@ -37,7 +38,11 @@ export default function TestimonialsSection() {
       setCurrent((prev) => (prev + 1) % testimonials.length)
     }, AUTO_SLIDE_MS)
     return () => clearInterval(timer)
-  }, [current])
+  }, [current, testimonials.length])
+
+  const handleReview = useCallback((review: { quote: string; author: string }) => {
+    setTestimonials((prev) => [...prev, review])
+  }, [])
 
   const variants = {
     enter: (d: number) => ({ x: d > 0 ? 60 : -60, opacity: 0 }),
@@ -47,7 +52,7 @@ export default function TestimonialsSection() {
 
   return (
     <section id="umsagnir" className={styles.section}>
-      <SectionHeading title="VIÐSKIPTAVINIR SEGJA" />
+      <SectionHeading title="HEYRÐU Í OKKUR" />
       <div className={styles.grid}>
         <motion.div
           className={styles.testimonial}
@@ -92,7 +97,7 @@ export default function TestimonialsSection() {
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <ContactForm />
+          <ContactForm onReview={handleReview} />
         </motion.div>
       </div>
     </section>

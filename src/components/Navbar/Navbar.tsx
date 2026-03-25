@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import ThemeToggle from '../ThemeToggle/ThemeToggle'
 import styles from './Navbar.module.css'
 
 const navLinks = [
-  { label: 'UM OKKUR', target: 'hero' },
   { label: 'ÞJÓNUSTA', target: 'thjonusta' },
-  { label: 'MYNDIR', target: 'myndir' },
-  { label: 'HAFÐU SAMBAND', target: 'umsagnir' },
+  { label: 'VERKEFNI', target: 'myndir' },
+  { label: 'UM OKKUR', target: 'um-okkur' },
 ]
 
 function handleScroll(id: string) {
@@ -54,25 +54,31 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            className={styles.ctaButton}
-            href="#umsagnir"
-            onClick={(e) => {
-              e.preventDefault()
-              handleScroll('umsagnir')
-            }}
-          >
-            FÁ TILBOÐ
-          </a>
+          <div className={styles.ctaGroup}>
+            <a
+              className={styles.ctaButton}
+              href="#umsagnir"
+              onClick={(e) => {
+                e.preventDefault()
+                handleScroll('umsagnir')
+              }}
+            >
+              HAFA SAMBAND
+            </a>
+            <ThemeToggle />
+          </div>
         </div>
 
-        <button
-          className={styles.hamburger}
-          onClick={() => setMenuOpen(true)}
-          aria-label="Opna valmynd"
-        >
+        <div className={styles.mobileActions}>
+          <ThemeToggle />
+          <button
+            className={styles.hamburger}
+            onClick={() => setMenuOpen(true)}
+            aria-label="Opna valmynd"
+          >
           <Menu size={24} />
         </button>
+        </div>
 
         <AnimatePresence>
           {menuOpen && (
@@ -113,7 +119,7 @@ export default function Navbar() {
                     handleNavClick('umsagnir')
                   }}
                 >
-                  FÁ TILBOÐ
+                  HAFA SAMBAND
                 </a>
               </div>
             </motion.div>

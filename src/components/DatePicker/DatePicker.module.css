@@ -1,0 +1,146 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text-dark);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 200ms, box-shadow 200ms;
+}
+
+.trigger:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+.placeholder {
+  color: var(--color-text-light);
+}
+
+.triggerError {
+  border-color: #DC2626;
+}
+
+.calendar {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 100;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  box-shadow: 0 4px 16px var(--color-shadow);
+  padding: 16px;
+  min-width: 280px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.monthYear {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+.navBtn {
+  background: none;
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-dark);
+  font-size: 14px;
+  transition: border-color 200ms, background-color 200ms;
+}
+
+.navBtn:hover {
+  border-color: var(--color-gold);
+  background-color: var(--color-cream);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.weekday {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-align: center;
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.day {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-text-dark);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 6px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms;
+}
+
+.day:hover {
+  background-color: var(--color-cream);
+  border-color: var(--color-border-light);
+}
+
+.daySelected {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  border-color: var(--color-gold);
+}
+
+.daySelected:hover {
+  background-color: var(--color-gold-hover);
+  border-color: var(--color-gold-hover);
+}
+
+.dayOutside {
+  color: var(--color-text-light);
+}
+
+.dayDisabled {
+  color: var(--color-border-light);
+  cursor: default;
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+}

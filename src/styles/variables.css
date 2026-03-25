@@ -10,10 +10,30 @@
   --color-text-light: #999999;
   --color-border-gold: #D4A843;
   --color-border-light: #E8E0D0;
+  --color-shadow: rgba(0, 0, 0, 0.08);
+  --color-shadow-light: rgba(0, 0, 0, 0.06);
+  --color-focus-ring: rgba(184, 134, 11, 0.15);
 
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, sans-serif;
 
   --max-width: 1200px;
   --navbar-height: 72px;
+}
+
+[data-theme="dark"] {
+  --color-gold: #C9A060;
+  --color-gold-hover: #DDB873;
+  --color-gold-light: #C9A060;
+  --color-cream: #1A1A1A;
+  --color-cream-dark: #141414;
+  --color-white: #222222;
+  --color-text-dark: #F0ECE4;
+  --color-text-medium: #B0A898;
+  --color-text-light: #807870;
+  --color-border-gold: #C9A060;
+  --color-border-light: #3A3530;
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-shadow-light: rgba(0, 0, 0, 0.2);
+  --color-focus-ring: rgba(201, 160, 96, 0.25);
 }

@@ -19,6 +19,7 @@ body {
   color: var(--color-text-dark);
   background-color: var(--color-cream);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 300ms, color 300ms;
 }
 
 img {

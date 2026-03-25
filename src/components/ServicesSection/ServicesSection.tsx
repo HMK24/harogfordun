@@ -4,19 +4,19 @@ import styles from './ServicesSection.module.css'
 const services = [
   {
     title: 'BRÚÐKAUP',
-    imageSrc: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&h=600&fit=crop',
+    images: ['/images/services/Brúðkaup 1.avif', '/images/services/Brúðkaup2.avif'],
     imageAlt: 'Brúður með fallegri hárgreiðslu og förðun á brúðkaupsdegi',
     href: '#umsagnir',
   },
   {
     title: 'VIÐBURÐIR',
-    imageSrc: 'https://images.unsplash.com/photo-1529635612369-b5c8a3e5e07e?w=600&h=600&fit=crop',
+    images: ['/images/services/Viðburðir 1.avif', '/images/services/Viðburðir2.avif'],
     imageAlt: 'Konur á viðburði með faglega hárgreiðslu og förðun',
     href: '#umsagnir',
   },
   {
-    title: 'KVIKMYNDIR & AUGLÝSINGAR',
-    imageSrc: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&h=600&fit=crop',
+    title: 'AUGLÝSINGAR',
+    images: ['/images/services/Auglýsingar 1.avif', '/images/services/Auglýsingar2.avif'],
     imageAlt: 'Fagleg förðun fyrir kvikmyndir og auglýsingar',
     href: '#umsagnir',
   },

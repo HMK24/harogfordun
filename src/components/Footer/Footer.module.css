@@ -21,6 +21,35 @@
   color: var(--color-text-medium);
 }
 
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-medium);
+  transition: color 200ms;
+}
+
+.contactItem:hover {
+  color: var(--color-gold);
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 200ms;
+}
+
+.socialLink:hover {
+  opacity: 0.7;
+}
+
 .copyright {
   margin-top: 16px;
   font-family: var(--font-sans);

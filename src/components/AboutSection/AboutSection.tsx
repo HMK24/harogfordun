@@ -1,20 +1,27 @@
+import { type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './AboutSection.module.css'
+
+function parseBold(text: string): ReactNode[] {
+  return text.split(/\*\*(.*?)\*\*/).map((part, i) =>
+    i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+  )
+}
 
 const owners = [
   {
     name: 'Rebekka Sif Þráinsdóttir',
     role: 'Förðunarfræðingur',
-    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=600&fit=crop',
-    bio: 'Rebekka hefur yfir 10 ára reynslu í förðun fyrir brúðkaup, viðburði og kvikmyndir. Hún útskrifaðist frá Listaháskóla Íslands og hefur unnið með nokkrum af þekktustu ljósmyndurum landsins.',
+    image: '/images/owners/Rebekka Sif NB.avif',
+    bio: 'Ég er 34 ára förðunarfræðingur sem útskrifaðist frá **Reykjavík Makeup School árið 2017** með **framúrskarandi árangri**.\nSíðan þá hef ég aflað mér víðtækrar reynslu í förðunarstörfum þar sem ég legg mikla áherslu á **gæði, nákvæmni og fagmennsku**.\n\nMarkmið mitt er að veita **persónulega og hlýja þjónustu** og huga sérstaklega að þörfum og óskum **hvers og eins**. Ég vil að allir viðskiptavinir gangi ánægðir frá borði og að útkoman endurspegli **þína einstöku fegurð**.',
     imageFirst: true,
   },
   {
     name: 'Ólöf Eir Brekkan',
     role: 'Hársnyrtir',
-    image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&h=600&fit=crop',
-    bio: 'Ólöf er vanur hársnyrtir með sérþekkingu á brúðarhárgreiðslum og stílrænni hársnyrðingu fyrir viðburði. Hún leggur áherslu á að hver viðskiptavinur fái persónulega og einstaka þjónustu.',
+    image: '/images/owners/Ólöf Eir NB.avif',
+    bio: 'Ég er 35 ára hárgreiðslukona með **6 ára reynslu í hársnyrti**. Ég hef haft mikinn áhuga á hári frá unga aldri og hef séð um hárgreiðslur á vinum og vandamönnum af fullri alvöru **frá því árið 2020** þar til ég lét að lokum drauminn rætast og útskrifaðist frá **Hárakademíunni vorið 2024** og lauk **sveinsprófi haustið sama ár**.\n\nÉg legg einstaka áherslu á **vandvirkni, gæði** og að veita **persónulega og hlýja þjónustu**. Fyrir mér snýst hárgreiðsla ekki bara um að gera hárið fallegt – heldur að láta hverjum og einum líða **vel og öruggum** með sitt hár og útlit.',
     imageFirst: false,
   },
 ]
@@ -38,8 +45,7 @@ export default function AboutSection() {
                 className={styles.image}
                 src={owner.image}
                 alt={owner.name}
-                width={500}
-                height={600}
+
                 loading="lazy"
               />
             </div>
@@ -47,7 +53,15 @@ export default function AboutSection() {
               <h3 className={styles.name}>{owner.name}</h3>
               <p className={styles.role}>{owner.role}</p>
               <div className={styles.divider} />
-              <p className={styles.bio}>{owner.bio}</p>
+              <div className={styles.bio}>
+                {owner.bio.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>
+                    {paragraph.split('\n').map((line, j, arr) => (
+                      <span key={j}>{parseBold(line)}{j < arr.length - 1 && <br />}</span>
+                    ))}
+                  </p>
+                ))}
+              </div>
             </div>
           </motion.div>
         ))}

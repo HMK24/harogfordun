@@ -5,24 +5,24 @@ import styles from './GallerySection.module.css'
 
 const images = [
   {
-    src: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&h=800&fit=crop',
-    fullSrc: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1200&h=1600&fit=crop',
+    src: '/images/portfolio/hair/10.JPG',
+    fullSrc: '/images/portfolio/hair/10.JPG',
     alt: 'Falleg brúðar hárgreiðsla að aftan',
   },
   {
-    src: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&h=800&fit=crop',
-    fullSrc: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1200&h=1600&fit=crop',
+    src: '/images/portfolio/hair/2.JPG',
+    fullSrc: '/images/portfolio/hair/2.JPG',
     alt: 'Hárgreiðsla frá hlið',
   },
   {
-    src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=800&fit=crop',
-    fullSrc: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=1600&fit=crop',
+    src: '/images/portfolio/makeup/1A.avif',
+    fullSrc: '/images/portfolio/makeup/1A.avif',
     alt: 'Glæsileg förðun í nærmynd',
   },
   {
-    src: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&h=800&fit=crop',
-    fullSrc: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1200&h=1600&fit=crop',
-    alt: 'Faglegur hársnyrtir að störfum',
+    src: '/images/portfolio/makeup/2A.avif',
+    fullSrc: '/images/portfolio/makeup/2A.avif',
+    alt: 'Faglegur förðun eftir breytingu',
   },
 ]
 

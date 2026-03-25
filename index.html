@@ -2,7 +2,7 @@
 <html lang="is">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hár & Förðun | Fagleg hár- og förðunarþjónusta á Íslandi</title>
     <meta name="description" content="Fagleg hár- og förðunarþjónusta fyrir brúðkaup, viðburði, kvikmyndir og auglýsingar. Við komum á staðinn hvar sem er á Íslandi." />
@@ -28,10 +28,17 @@
         "name": "Hár & Förðun",
         "url": "https://harogfordun.is",
         "email": "info@harogfordun.is",
-        "telephone": "555-1234",
+        "telephone": "848-3732",
         "areaServed": "Iceland",
         "description": "Fagleg hár- og förðunarþjónusta fyrir brúðkaup, viðburði, kvikmyndir og auglýsingar á Íslandi."
       }
+    </script>
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
     </script>
   </head>
   <body>

@@ -1,15 +1,26 @@
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import styles from './ServiceCard.module.css'
 
 interface ServiceCardProps {
   title: string
-  imageSrc: string
+  images: string[]
   imageAlt: string
   href: string
   index: number
 }
 
-export default function ServiceCard({ title, imageSrc, imageAlt, href, index }: ServiceCardProps) {
+export default function ServiceCard({ title, images, imageAlt, href, index }: ServiceCardProps) {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    if (images.length <= 1) return
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [images.length])
+
   return (
     <motion.div
       className={styles.card}
@@ -21,14 +32,21 @@ export default function ServiceCard({ title, imageSrc, imageAlt, href, index }: 
       <div className={styles.headingArea}>
         <h3 className={styles.title}>{title}</h3>
       </div>
-      <img
-        className={styles.image}
-        src={imageSrc}
-        alt={imageAlt}
-        width={600}
-        height={600}
-        loading="lazy"
-      />
+      <div className={styles.slider}>
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={current}
+            className={styles.image}
+            src={images[current]}
+            alt={imageAlt}
+            loading="lazy"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+          />
+        </AnimatePresence>
+      </div>
       <div className={styles.linkArea}>
         <a className={styles.link} href={href}>
           Skoða nánar ›

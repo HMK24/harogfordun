@@ -13,7 +13,7 @@ export default function HeroSection() {
         <p className={styles.subtitle}>FYRIR STÓRU STUNDIRNAR</p>
         <hr className={styles.divider} />
         <p className={styles.description}>
-          Brúðkaup • Viðburðir • Kvikmyndir & Auglýsingar
+          Brúðkaup • Viðburðir • Auglýsingar
         </p>
         <div className={styles.buttons}>
           <a
