@@ -7,22 +7,22 @@ const images = [
   {
     src: '/images/portfolio/hair/10.JPG',
     fullSrc: '/images/portfolio/hair/10.JPG',
-    alt: 'Falleg brúðar hárgreiðsla að aftan',
+    alt: 'Falleg brúðargreiðsla – hárgreiðsla brúðar að aftan',
   },
   {
     src: '/images/portfolio/hair/2.JPG',
     fullSrc: '/images/portfolio/hair/2.JPG',
-    alt: 'Hárgreiðsla frá hlið',
+    alt: 'Fermingargreiðsla og klipping – hárgreiðsla frá hlið',
   },
   {
     src: '/images/portfolio/makeup/1A.avif',
     fullSrc: '/images/portfolio/makeup/1A.avif',
-    alt: 'Glæsileg förðun í nærmynd',
+    alt: 'Glæsileg brúðarförðun og förðun í nærmynd',
   },
   {
     src: '/images/portfolio/makeup/2A.avif',
     fullSrc: '/images/portfolio/makeup/2A.avif',
-    alt: 'Faglegur förðun eftir breytingu',
+    alt: 'Fagleg förðun og litun – áður og eftir breytingu',
   },
 ]
 

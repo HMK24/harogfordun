@@ -5,19 +5,19 @@ const services = [
   {
     title: 'BRÚÐKAUP',
     images: ['/images/services/Brúðkaup 1.avif', '/images/services/Brúðkaup2.avif'],
-    imageAlt: 'Brúður með fallegri hárgreiðslu og förðun á brúðkaupsdegi',
+    imageAlt: 'Brúðargreiðsla og brúðarförðun – fagleg þjónusta á brúðkaupsdegi',
     href: '#umsagnir',
   },
   {
     title: 'VIÐBURÐIR',
     images: ['/images/services/Viðburðir 1.avif', '/images/services/Viðburðir2.avif'],
-    imageAlt: 'Konur á viðburði með faglega hárgreiðslu og förðun',
+    imageAlt: 'Fermingargreiðsla, förðun og klipping fyrir viðburði',
     href: '#umsagnir',
   },
   {
     title: 'AUGLÝSINGAR',
     images: ['/images/services/Auglýsingar 1.avif', '/images/services/Auglýsingar2.avif'],
-    imageAlt: 'Fagleg förðun fyrir kvikmyndir og auglýsingar',
+    imageAlt: 'Fagleg förðun, litun og klipping fyrir kvikmyndir og auglýsingar',
     href: '#umsagnir',
   },
 ]
