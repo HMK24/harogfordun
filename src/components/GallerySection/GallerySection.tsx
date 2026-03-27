@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useCallback, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import SectionHeading from '../SectionHeading/SectionHeading'
 import styles from './GallerySection.module.css'
 
@@ -14,37 +14,29 @@ const images = [
   { src: '/images/portfolio/hair/8.JPG', alt: 'Hárgreiðsla 8' },
   { src: '/images/portfolio/hair/9.JPG', alt: 'Hárgreiðsla 9' },
   { src: '/images/portfolio/hair/10.JPG', alt: 'Hárgreiðsla 10' },
-  { src: '/images/portfolio/makeup/1A.avif', alt: 'Förðun 1A' },
   { src: '/images/portfolio/makeup/1B.avif', alt: 'Förðun 1B' },
-  { src: '/images/portfolio/makeup/2A.avif', alt: 'Förðun 2A' },
+  { src: '/images/portfolio/makeup/1A.avif', alt: 'Förðun 1A' },
   { src: '/images/portfolio/makeup/2B.avif', alt: 'Förðun 2B' },
-  { src: '/images/portfolio/makeup/3A.avif', alt: 'Förðun 3A' },
+  { src: '/images/portfolio/makeup/2A.avif', alt: 'Förðun 2A' },
   { src: '/images/portfolio/makeup/3B.avif', alt: 'Förðun 3B' },
-  { src: '/images/portfolio/makeup/4A.avif', alt: 'Förðun 4A' },
+  { src: '/images/portfolio/makeup/3A.avif', alt: 'Förðun 3A' },
   { src: '/images/portfolio/makeup/4B.avif', alt: 'Förðun 4B' },
-  { src: '/images/portfolio/makeup/5A.avif', alt: 'Förðun 5A' },
+  { src: '/images/portfolio/makeup/4A.avif', alt: 'Förðun 4A' },
   { src: '/images/portfolio/makeup/5B.avif', alt: 'Förðun 5B' },
-  { src: '/images/portfolio/makeup/6A.avif', alt: 'Förðun 6A' },
+  { src: '/images/portfolio/makeup/5A.avif', alt: 'Förðun 5A' },
   { src: '/images/portfolio/makeup/6B.avif', alt: 'Förðun 6B' },
-  { src: '/images/portfolio/makeup/7A.avif', alt: 'Förðun 7A' },
+  { src: '/images/portfolio/makeup/6A.avif', alt: 'Förðun 6A' },
   { src: '/images/portfolio/makeup/7B.avif', alt: 'Förðun 7B' },
+  { src: '/images/portfolio/makeup/7A.avif', alt: 'Förðun 7A' },
 ]
 
-const IMAGES_PER_SLIDE = 4
+// Duplicate images for seamless looping
+const scrollImages = [...images, ...images]
 
 export default function GallerySection() {
-  const [slideIndex, setSlideIndex] = useState(0)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-
-  const totalSlides = Math.ceil(images.length / IMAGES_PER_SLIDE)
-
-  const prevSlide = useCallback(() => {
-    setSlideIndex((i) => (i - 1 + totalSlides) % totalSlides)
-  }, [totalSlides])
-
-  const nextSlide = useCallback(() => {
-    setSlideIndex((i) => (i + 1) % totalSlides)
-  }, [totalSlides])
+  const [paused, setPaused] = useState(false)
+  const trackRef = useRef<HTMLDivElement>(null)
 
   const close = useCallback(() => setLightboxIndex(null), [])
   const prev = useCallback(
@@ -71,73 +63,39 @@ export default function GallerySection() {
     }
   }, [lightboxIndex, close, prev, next])
 
-  const currentImages = images.slice(
-    slideIndex * IMAGES_PER_SLIDE,
-    slideIndex * IMAGES_PER_SLIDE + IMAGES_PER_SLIDE,
-  )
-
   return (
     <section id="myndir" className={styles.section}>
       <SectionHeading title="Portfolio" />
 
-      <div className={styles.carousel}>
-        <button
-          className={`${styles.carouselBtn} ${styles.carouselPrev}`}
-          onClick={prevSlide}
-          aria-label="Fyrri myndir"
+      <div
+        className={styles.carousel}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div
+          ref={trackRef}
+          className={`${styles.track} ${paused ? styles.trackPaused : ''}`}
         >
-          &#8249;
-        </button>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={slideIndex}
-            className={styles.grid}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            {currentImages.map((img) => {
-              const globalIndex = images.indexOf(img)
-              return (
-                <div
-                  key={img.src}
-                  className={styles.imageWrapper}
-                  onClick={() => setLightboxIndex(globalIndex)}
-                >
-                  <img
-                    className={styles.image}
-                    src={img.src}
-                    alt={img.alt}
-                    width={600}
-                    height={800}
-                    loading="lazy"
-                  />
-                </div>
-              )
-            })}
-          </motion.div>
-        </AnimatePresence>
-
-        <button
-          className={`${styles.carouselBtn} ${styles.carouselNext}`}
-          onClick={nextSlide}
-          aria-label="Næstu myndir"
-        >
-          &#8250;
-        </button>
-      </div>
-
-      <div className={styles.dots}>
-        {Array.from({ length: totalSlides }, (_, i) => (
-          <button
-            key={i}
-            className={`${styles.dot} ${i === slideIndex ? styles.dotActive : ''}`}
-            onClick={() => setSlideIndex(i)}
-            aria-label={`Síða ${i + 1}`}
-          />
-        ))}
+          {scrollImages.map((img, i) => {
+            const globalIndex = i % images.length
+            return (
+              <div
+                key={`${img.src}-${i}`}
+                className={styles.imageWrapper}
+                onClick={() => setLightboxIndex(globalIndex)}
+              >
+                <img
+                  className={styles.image}
+                  src={img.src}
+                  alt={img.alt}
+                  width={600}
+                  height={800}
+                  loading="lazy"
+                />
+              </div>
+            )
+          })}
+        </div>
       </div>
 
       <AnimatePresence>

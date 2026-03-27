@@ -1,72 +1,42 @@
 .section {
   background-color: var(--color-cream-dark);
-  padding: 80px 24px;
+  padding: 80px 0;
   scroll-margin-top: var(--navbar-height);
+  overflow: hidden;
 }
 
 .carousel {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
-.grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.track {
+  display: flex;
   gap: 10px;
+  width: max-content;
+  animation: scroll 90s linear infinite;
 }
 
-.carouselBtn {
-  flex-shrink: 0;
-  background: var(--color-gold);
-  color: var(--color-white);
-  border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 200ms;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+.trackPaused {
+  animation-play-state: paused;
 }
 
-.carouselBtn:hover {
-  background: var(--color-gold-hover);
-}
-
-.dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: none;
-  background: var(--color-gold);
-  opacity: 0.3;
-  cursor: pointer;
-  padding: 0;
-  transition: opacity 200ms;
-}
-
-.dotActive {
-  opacity: 1;
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .imageWrapper {
-  overflow: hidden;
+  flex-shrink: 0;
+  width: 280px;
   aspect-ratio: 3 / 4;
+  overflow: hidden;
   cursor: pointer;
 }
 
@@ -146,24 +116,18 @@
 }
 
 @media (max-width: 1023px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .imageWrapper {
+    width: 220px;
   }
 }
 
 @media (max-width: 640px) {
   .section {
-    padding: 48px 24px;
+    padding: 48px 0;
   }
 
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .carouselBtn {
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
+  .imageWrapper {
+    width: 180px;
   }
 
   .navBtn {
