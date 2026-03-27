@@ -4,12 +4,64 @@
   scroll-margin-top: var(--navbar-height);
 }
 
-.grid {
+.carousel {
   max-width: var(--max-width);
   margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.grid {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+}
+
+.carouselBtn {
+  flex-shrink: 0;
+  background: var(--color-gold);
+  color: var(--color-white);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 200ms;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.carouselBtn:hover {
+  background: var(--color-gold-hover);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-gold);
+  opacity: 0.3;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 200ms;
+}
+
+.dotActive {
+  opacity: 1;
 }
 
 .imageWrapper {
@@ -106,6 +158,12 @@
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .carouselBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
   }
 
   .navBtn {

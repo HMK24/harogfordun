@@ -7,16 +7,9 @@ import styles from './TestimonialsSection.module.css'
 
 const initialTestimonials = [
   {
-    quote: '„Þær voru algjörlega frábærar! Ég var í skýjunum með förðunina og harið og brúðkaupsdagurinn var alveg einstakur."',
-    author: 'Anna S.',
-  },
-  {
-    quote: '„Algjörlega ótrúlegt lið! Þær komu á staðinn með allt sem þurfti og sáu um alla gesti okkar. Mæli eindregið með þeim."',
-    author: 'Katrín H.',
-  },
-  {
-    quote: '„Við fengjum þjónustuna fyrir kvikmyndartökur og þær voru ótrúlega fagmannlegar. Allt gekk hratt og snyrðilega."',
-    author: 'Sigríður B.',
+    quote: '„Takk fyrir okkur - þið eruð dásamlegar og við Inga vorum sko langflottastar ❤️"',
+    author: 'Aðalheiður & Ingibjörg',
+    stars: 5,
   },
 ]
 
@@ -41,7 +34,7 @@ export default function TestimonialsSection() {
   }, [current, testimonials.length])
 
   const handleReview = useCallback((review: { quote: string; author: string }) => {
-    setTestimonials((prev) => [...prev, review])
+    setTestimonials((prev) => [...prev, { ...review, stars: 5 }])
   }, [])
 
   const variants = {
@@ -75,6 +68,7 @@ export default function TestimonialsSection() {
                 <TestimonialCard
                   quote={testimonials[current].quote}
                   author={testimonials[current].author}
+                  stars={testimonials[current].stars}
                 />
               </motion.div>
             </AnimatePresence>
