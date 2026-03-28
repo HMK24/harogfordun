@@ -166,7 +166,7 @@ export default function ContactForm({ onReview }: ContactFormProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          access_key: '4eb7741f-5263-48cb-8d1f-6588f8883398',
           subject: isReview
             ? 'Ný umsögn'
             : `Ný fyrirspurn - ${SERVICE_LABELS[data.thjonusta]}`,
