@@ -140,27 +140,64 @@ function VerkefniSelect({ register, errors }: {
   )
 }
 
+const SERVICE_LABELS: Record<ServiceType, string> = {
+  '': '',
+  ferming: 'Ferming',
+  brudkaup: 'Brúðkaup',
+  adrir: 'Aðrir viðburðir',
+  umsogn: 'Umsögn',
+}
+
 export default function ContactForm({ onReview }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [service, setService] = useState<ServiceType>('')
   const { register, handleSubmit, reset, formState: { errors }, setValue, trigger } = useForm<FormData>()
 
   const isReview = service === 'umsogn'
 
-  const onSubmit = (data: FormData) => {
-    console.log(data)
+  const onSubmit = async (data: FormData) => {
+    setSubmitting(true)
+    setSubmitError('')
 
-    if (isReview && onReview) {
-      const rating = parseInt(data.stjornur, 10)
-      if (rating >= 4) {
-        onReview({
-          quote: `„${data.umsogn}"`,
-          author: data.nafn,
-        })
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          subject: isReview
+            ? 'Ný umsögn'
+            : `Ný fyrirspurn - ${SERVICE_LABELS[data.thjonusta]}`,
+          from_name: data.nafn,
+          replyto: data.netfang || undefined,
+          ...data,
+          botcheck: '',
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        if (isReview && onReview) {
+          const rating = parseInt(data.stjornur, 10)
+          if (rating >= 4) {
+            onReview({
+              quote: `„${data.umsogn}"`,
+              author: data.nafn,
+            })
+          }
+        }
+        setSubmitted(true)
+      } else {
+        setSubmitError('Villa kom upp við sendingu. Vinsamlegast reyndu aftur.')
       }
+    } catch {
+      setSubmitError('Villa kom upp við sendingu. Vinsamlegast reyndu aftur.')
+    } finally {
+      setSubmitting(false)
     }
-
-    setSubmitted(true)
   }
 
   const handleReset = () => {
@@ -187,6 +224,7 @@ export default function ContactForm({ onReview }: ContactFormProps) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+      <input type="checkbox" name="botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
       <div className={styles.field}>
         <select
           className={`${styles.select} ${!service ? styles.selectPlaceholder : ''} ${errors.thjonusta ? styles.inputError : ''}`}
@@ -211,6 +249,19 @@ export default function ContactForm({ onReview }: ContactFormProps) {
       {service === 'brudkaup' && <BrudkaupFields register={register} errors={errors} setValue={setValue} trigger={trigger} />}
       {service === 'adrir' && <AdrirFields register={register} errors={errors} setValue={setValue} trigger={trigger} />}
       {service === 'umsogn' && <UmsognFields register={register} errors={errors} />}
+
+      {submitError && <p className={styles.submitError}>{submitError}</p>}
+
+      {service && !isReview && (
+        <button className={styles.button} type="submit" disabled={submitting}>
+          {submitting ? 'Sendi...' : 'SENDA FYRIRSPURN'}
+        </button>
+      )}
+      {service && isReview && (
+        <button className={styles.button} type="submit" disabled={submitting}>
+          {submitting ? 'Sendi...' : 'SENDA UMSÖGN'}
+        </button>
+      )}
     </form>
   )
 }
@@ -325,7 +376,6 @@ function FermingFields({ register, errors, setValue, trigger }: FieldProps) {
         />
         {errors.skilabod && <span className={styles.error}>{errors.skilabod.message}</span>}
       </div>
-      <button className={styles.button} type="submit">SENDA FYRIRSPURN</button>
     </>
   )
 }
@@ -466,7 +516,6 @@ function BrudkaupFields({ register, errors, setValue, trigger }: FieldProps) {
         />
         {errors.skilabod && <span className={styles.error}>{errors.skilabod.message}</span>}
       </div>
-      <button className={styles.button} type="submit">SENDA FYRIRSPURN</button>
     </>
   )
 }
@@ -573,7 +622,6 @@ function AdrirFields({ register, errors, setValue, trigger }: FieldProps) {
         />
         {errors.skilabod && <span className={styles.error}>{errors.skilabod.message}</span>}
       </div>
-      <button className={styles.button} type="submit">SENDA FYRIRSPURN</button>
     </>
   )
 }
@@ -643,7 +691,6 @@ function UmsognFields({ register, errors }: Omit<FieldProps, 'setValue' | 'trigg
         />
         {errors.umsogn && <span className={styles.error}>{errors.umsogn.message}</span>}
       </div>
-      <button className={styles.button} type="submit">SENDA UMSÖGN</button>
     </>
   )
 }
