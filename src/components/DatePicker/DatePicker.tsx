@@ -39,7 +39,14 @@ export default function DatePicker({ placeholder, value, onChange, hasError }: D
   const daysInMonth = getDaysInMonth(viewYear, viewMonth)
   const firstDay = getFirstDayOfWeek(viewYear, viewMonth)
 
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
   const prevMonth = () => {
+    const prevDate = new Date(viewYear, viewMonth - 1, 1)
+    if (prevDate.getFullYear() < today.getFullYear() ||
+      (prevDate.getFullYear() === today.getFullYear() && prevDate.getMonth() < today.getMonth())) {
+      return
+    }
     if (viewMonth === 0) {
       setViewMonth(11)
       setViewYear(viewYear - 1)
@@ -94,7 +101,9 @@ export default function DatePicker({ placeholder, value, onChange, hasError }: D
     cells.push({ day: prevMonthDays - firstDay + 1 + i, current: false, disabled: true })
   }
   for (let d = 1; d <= daysInMonth; d++) {
-    cells.push({ day: d, current: true, disabled: false })
+    const cellDate = new Date(viewYear, viewMonth, d)
+    const isPast = cellDate < todayDate
+    cells.push({ day: d, current: true, disabled: isPast })
   }
   const remaining = 7 - (cells.length % 7)
   if (remaining < 7) {
@@ -118,7 +127,12 @@ export default function DatePicker({ placeholder, value, onChange, hasError }: D
           <div className={styles.overlay} onClick={() => setOpen(false)} />
           <div className={styles.calendar}>
             <div className={styles.header}>
-              <button type="button" className={styles.navBtn} onClick={prevMonth}>
+              <button
+                type="button"
+                className={styles.navBtn}
+                onClick={prevMonth}
+                disabled={viewYear === today.getFullYear() && viewMonth === today.getMonth()}
+              >
                 &#8249;
               </button>
               <span className={styles.monthYear}>
@@ -147,7 +161,7 @@ export default function DatePicker({ placeholder, value, onChange, hasError }: D
                     key={i}
                     type="button"
                     className={`${styles.day} ${isSelected ? styles.daySelected : ''} ${!cell.current ? styles.dayOutside : ''} ${cell.disabled ? styles.dayDisabled : ''}`}
-                    onClick={() => cell.current && selectDay(cell.day)}
+                    onClick={() => cell.current && !cell.disabled && selectDay(cell.day)}
                     tabIndex={cell.disabled ? -1 : 0}
                   >
                     {cell.day}
