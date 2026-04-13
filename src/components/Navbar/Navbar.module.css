@@ -101,7 +101,6 @@
 .mobileActions {
   display: none;
   align-items: center;
-  gap: 12px;
 }
 
 .hamburger {
@@ -109,7 +108,12 @@
   border: none;
   cursor: pointer;
   color: var(--color-text-dark);
-  padding: 4px;
+  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Mobile overlay — hidden by default, managed by AnimatePresence */
@@ -131,7 +135,12 @@
   border: none;
   cursor: pointer;
   color: var(--color-text-dark);
-  padding: 4px;
+  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .overlayLinks {
@@ -176,6 +185,10 @@
   border-color: var(--color-gold-hover);
 }
 
+.overlayToggle {
+  margin-top: 8px;
+}
+
 /* Mobile breakpoint */
 @media (max-width: 1023px) {
   .desktopLinks {
@@ -188,5 +201,33 @@
 
   .logoLine {
     width: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 0 16px;
+  }
+
+  .logoWrapper {
+    gap: 8px;
+  }
+
+  .logoLine {
+    width: 16px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 360px) {
+  .logoLine {
+    display: none;
+  }
+
+  .logo {
+    font-size: 20px;
   }
 }

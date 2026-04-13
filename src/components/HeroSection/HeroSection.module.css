@@ -133,6 +133,7 @@
   .content {
     min-height: 60dvh;
     max-height: 60dvh;
+    padding: 0 16px;
   }
 
   .title {
@@ -143,6 +144,10 @@
     font-size: 20px;
   }
 
+  .description {
+    font-size: 14px;
+  }
+
   .buttons {
     flex-direction: column;
     gap: 12px;
@@ -151,5 +156,21 @@
   .btnPrimary,
   .btnOutline {
     width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .btnPrimary,
+  .btnOutline {
+    font-size: 12px;
+    padding: 10px 16px;
   }
 }

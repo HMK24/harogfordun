@@ -70,14 +70,13 @@ export default function Navbar() {
         </div>
 
         <div className={styles.mobileActions}>
-          <ThemeToggle />
           <button
             className={styles.hamburger}
             onClick={() => setMenuOpen(true)}
             aria-label="Opna valmynd"
           >
-          <Menu size={24} />
-        </button>
+            <Menu size={24} />
+          </button>
         </div>
 
         <AnimatePresence>
@@ -121,6 +120,9 @@ export default function Navbar() {
                 >
                   HAFA SAMBAND
                 </a>
+                <div className={styles.overlayToggle}>
+                  <ThemeToggle />
+                </div>
               </div>
             </motion.div>
           )}

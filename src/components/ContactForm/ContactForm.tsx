@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { CheckCircle } from 'lucide-react'
+import { CheckCircle, AlertCircle } from 'lucide-react'
 import DatePicker from '../DatePicker/DatePicker'
 import styles from './ContactForm.module.css'
 
@@ -28,7 +28,7 @@ interface FormData {
 }
 
 interface ContactFormProps {
-  onReview?: (review: { quote: string; author: string }) => void
+  onReview?: (review: { quote: string; author: string; stars: number }) => void
 }
 
 // Icelandic street name autocomplete from static data
@@ -153,15 +153,55 @@ export default function ContactForm({ onReview }: ContactFormProps) {
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [service, setService] = useState<ServiceType>('')
+  const [shakeButton, setShakeButton] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
+  const errorBannerRef = useRef<HTMLDivElement>(null)
   const { register, handleSubmit, reset, formState: { errors }, setValue, trigger } = useForm<FormData>()
 
+  const errorCount = Object.keys(errors).length
   const isReview = service === 'umsogn'
+
+  useEffect(() => {
+    if (errorCount > 0 && errorBannerRef.current) {
+      errorBannerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }, [errorCount])
+
+  const onInvalid = () => {
+    setShakeButton(true)
+    setTimeout(() => setShakeButton(false), 500)
+  }
 
   const onSubmit = async (data: FormData) => {
     setSubmitting(true)
     setSubmitError('')
 
     try {
+      // Map internal field names to proper Icelandic labels for the email
+      const fieldLabels: Record<string, string> = {
+        thjonusta: 'Þjónusta',
+        dagsetning: 'Dagsetning Prúfu',
+        dagsetningBrudkaups: 'Dagsetning Brúðkaups',
+        stadsetning: 'Staðsetning',
+        nafn: 'Nafn tengiliðs',
+        netfang: 'Netfang',
+        simi: 'Símanúmer',
+        nafnBrudar: 'Nafn brúðar',
+        nafnBrudguma: 'Nafn brúðguma',
+        postnumer: 'Póstnúmer',
+        fjoldi: 'Fjöldi viðskiptavina',
+        skilabod: 'Skilaboð',
+        verkefni: 'Verkefni',
+      }
+
+      const labeledData: Record<string, string> = {}
+      for (const [key, value] of Object.entries(data)) {
+        if (value) {
+          const label = fieldLabels[key] || key
+          labeledData[label] = value as string
+        }
+      }
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -172,7 +212,7 @@ export default function ContactForm({ onReview }: ContactFormProps) {
             : `Ný fyrirspurn - ${SERVICE_LABELS[data.thjonusta]}`,
           from_name: data.nafn,
           replyto: data.netfang || undefined,
-          ...data,
+          ...labeledData,
           botcheck: '',
         }),
       })
@@ -182,12 +222,11 @@ export default function ContactForm({ onReview }: ContactFormProps) {
       if (result.success) {
         if (isReview && onReview) {
           const rating = parseInt(data.stjornur, 10)
-          if (rating >= 4) {
-            onReview({
-              quote: `„${data.umsogn}"`,
-              author: data.nafn,
-            })
-          }
+          onReview({
+            quote: `„${data.umsogn}"`,
+            author: data.nafn,
+            stars: rating,
+          })
         }
         setSubmitted(true)
       } else {
@@ -223,8 +262,15 @@ export default function ContactForm({ onReview }: ContactFormProps) {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form className={styles.form} ref={formRef} onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
       <input type="checkbox" name="botcheck" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
+      {errorCount > 0 && (
+        <div className={styles.errorBanner} ref={errorBannerRef}>
+          <AlertCircle size={18} />
+          <span>Vinsamlegast lagfærðu {errorCount} {errorCount === 1 ? 'villu' : 'villur'} í forminu hér að neðan.</span>
+        </div>
+      )}
       <div className={styles.field}>
         <select
           className={`${styles.select} ${!service ? styles.selectPlaceholder : ''} ${errors.thjonusta ? styles.inputError : ''}`}
@@ -253,12 +299,12 @@ export default function ContactForm({ onReview }: ContactFormProps) {
       {submitError && <p className={styles.submitError}>{submitError}</p>}
 
       {service && !isReview && (
-        <button className={styles.button} type="submit" disabled={submitting}>
+        <button className={`${styles.button} ${shakeButton ? styles.buttonShake : ''}`} type="submit" disabled={submitting}>
           {submitting ? 'Sendi...' : 'SENDA FYRIRSPURN'}
         </button>
       )}
       {service && isReview && (
-        <button className={styles.button} type="submit" disabled={submitting}>
+        <button className={`${styles.button} ${shakeButton ? styles.buttonShake : ''}`} type="submit" disabled={submitting}>
           {submitting ? 'Sendi...' : 'SENDA UMSÖGN'}
         </button>
       )}

@@ -54,7 +54,7 @@
 
 @media (max-width: 768px) {
   .step {
-    padding: 24px 32px;
+    padding: 24px 16px;
   }
 
   .withDivider::after {
@@ -64,5 +64,9 @@
     right: 10%;
     height: 1px;
     width: 80%;
+  }
+
+  .text {
+    font-size: 16px;
   }
 }

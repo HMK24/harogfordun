@@ -58,6 +58,10 @@
 }
 
 @media (max-width: 640px) {
+  .footer {
+    padding: 32px 16px;
+  }
+
   .contact {
     flex-direction: column;
     gap: 8px;

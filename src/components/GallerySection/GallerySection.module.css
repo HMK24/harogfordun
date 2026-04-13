@@ -140,3 +140,9 @@
     max-height: 80vh;
   }
 }
+
+@media (max-width: 360px) {
+  .imageWrapper {
+    width: 140px;
+  }
+}

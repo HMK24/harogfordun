@@ -35,3 +35,31 @@
     letter-spacing: 0.1em;
   }
 }
+
+@media (max-width: 480px) {
+  .wrapper {
+    gap: 10px;
+  }
+
+  .heading {
+    font-size: 18px;
+    letter-spacing: 0.05em;
+  }
+
+  .wrapper::before,
+  .wrapper::after {
+    max-width: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .heading {
+    font-size: 15px;
+    letter-spacing: 0.03em;
+  }
+
+  .wrapper::before,
+  .wrapper::after {
+    max-width: 24px;
+  }
+}

@@ -11,6 +11,16 @@ const initialTestimonials = [
     author: 'Aðalheiður & Ingibjörg',
     stars: 5,
   },
+  {
+    quote: '„Alltaf jafn ánægð! Rebekka er einfaldlega sú besta! Förðunin endist ótrúlega vel og útkoman verður alltaf akkurat eins og ég vil. Mæli 100% með! 😍💕"',
+    author: 'Kristín',
+    stars: 5,
+  },
+  {
+    quote: '„Loved it! Virkilega ánægð með útkomuna 💞"',
+    author: 'Bríet',
+    stars: 5,
+  },
 ]
 
 const AUTO_SLIDE_MS = 6000
@@ -33,8 +43,8 @@ export default function TestimonialsSection() {
     return () => clearInterval(timer)
   }, [current, testimonials.length])
 
-  const handleReview = useCallback((review: { quote: string; author: string }) => {
-    setTestimonials((prev) => [...prev, { ...review, stars: 5 }])
+  const handleReview = useCallback((review: { quote: string; author: string; stars: number }) => {
+    setTestimonials((prev) => [...prev, review])
   }, [])
 
   const variants = {
