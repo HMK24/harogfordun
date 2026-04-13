@@ -1,11 +1,13 @@
+import { lazy, Suspense } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import HeroSection from './components/HeroSection/HeroSection'
 import ServicesSection from './components/ServicesSection/ServicesSection'
-import HowWeWorkSection from './components/HowWeWorkSection/HowWeWorkSection'
-import GallerySection from './components/GallerySection/GallerySection'
-import AboutSection from './components/AboutSection/AboutSection'
-import TestimonialsSection from './components/TestimonialsSection/TestimonialsSection'
-import Footer from './components/Footer/Footer'
+
+const HowWeWorkSection = lazy(() => import('./components/HowWeWorkSection/HowWeWorkSection'))
+const GallerySection = lazy(() => import('./components/GallerySection/GallerySection'))
+const AboutSection = lazy(() => import('./components/AboutSection/AboutSection'))
+const TestimonialsSection = lazy(() => import('./components/TestimonialsSection/TestimonialsSection'))
+const Footer = lazy(() => import('./components/Footer/Footer'))
 
 function App() {
   return (
@@ -14,12 +16,16 @@ function App() {
       <main>
         <HeroSection />
         <ServicesSection />
-        <HowWeWorkSection />
-        <GallerySection />
-        <AboutSection />
-        <TestimonialsSection />
+        <Suspense fallback={null}>
+          <HowWeWorkSection />
+          <GallerySection />
+          <AboutSection />
+          <TestimonialsSection />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   )
 }
