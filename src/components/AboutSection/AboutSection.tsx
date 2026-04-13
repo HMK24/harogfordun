@@ -13,7 +13,7 @@ const owners = [
   {
     name: 'Rebekka Sif Þráinsdóttir',
     role: 'Förðunarfræðingur',
-    image: '/images/owners/RS - NB.png',
+    image: '/images/owners/RS - NB.avif',
     bio: 'Förðunarfræðingur með gráðu frá **Reykjavík Makeup School árið 2017** með **framúrskarandi árangri**.\nSíðan þá hef ég aflað mér víðtækrar reynslu í förðunarstörfum og sérhæfi mig í **brúðarförðun**, **förðun** fyrir viðburði og **litun** þar sem ég legg mikla áherslu á **gæði, nákvæmni og fagmennsku**.\n\nMarkmið mitt er að veita **persónulega og hlýja þjónustu** og huga sérstaklega að þörfum og óskum **hvers og eins**. Ég vil að allir viðskiptavinir gangi ánægðir frá borði og að útkoman endurspegli **þína einstöku fegurð**.',
     imageFirst: true,
   },
