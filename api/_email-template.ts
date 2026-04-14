@@ -90,6 +90,23 @@ const buildRows = (p: SubmissionPayload): Row[] => {
   ].filter((r) => r.value)
 }
 
+// From-name sanitisation: RFC 5322 forbids certain chars in a display name
+// unless quoted. Strip them so we never produce a malformed header.
+const sanitizeFromName = (s: string): string =>
+  s.replace(/["<>\r\n]/g, '').trim().slice(0, 64)
+
+export const buildFromName = (p: SubmissionPayload): string => {
+  const name = p.nafn ? sanitizeFromName(p.nafn) : ''
+  if (p.kind === 'review') {
+    return name ? `${name} — Umsögn` : 'Umsögn'
+  }
+  const svc = label(SERVICE_LABELS, p.service)
+  if (name && svc) return `${name} — ${svc}`
+  if (name) return name
+  if (svc) return svc
+  return 'Ný fyrirspurn'
+}
+
 export const buildSubject = (p: SubmissionPayload): string => {
   if (p.kind === 'review') {
     const stars = p.stjornur ? '★'.repeat(parseInt(p.stjornur, 10)) : ''

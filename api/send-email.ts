@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { Resend } from 'resend'
-import { buildHtml, buildSubject, buildText, type SubmissionPayload } from './_email-template.js'
+import { buildFromName, buildHtml, buildSubject, buildText, type SubmissionPayload } from './_email-template.js'
 
-const FROM = 'Hár & Förðun <noreply@harogfordun.is>'
+const FROM_ADDRESS = 'noreply@harogfordun.is'
 const TO = 'info@harogfordun.is'
 
 const isEmail = (v: unknown): v is string =>
@@ -77,7 +77,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const { error } = await resend.emails.send({
-      from: FROM,
+      from: `${buildFromName(payload)} <${FROM_ADDRESS}>`,
       to: TO,
       replyTo: payload.kind === 'inquiry' && payload.netfang ? payload.netfang : undefined,
       subject: buildSubject(payload),
