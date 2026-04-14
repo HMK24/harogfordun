@@ -28,6 +28,12 @@ const images = [
   { src: '/images/portfolio/makeup/6A.avif', alt: 'Förðun 6A' },
   { src: '/images/portfolio/makeup/7B.avif', alt: 'Förðun 7B' },
   { src: '/images/portfolio/makeup/7A.avif', alt: 'Förðun 7A' },
+  { src: '/images/portfolio/sa1.avif', alt: 'Portfolio 1' },
+  { src: '/images/portfolio/sa2.avif', alt: 'Portfolio 2' },
+  { src: '/images/portfolio/sa3.avif', alt: 'Portfolio 3' },
+  { src: '/images/portfolio/sa4.avif', alt: 'Portfolio 4' },
+  { src: '/images/portfolio/sa5.avif', alt: 'Portfolio 5' },
+  { src: '/images/portfolio/sa6.avif', alt: 'Portfolio 6' },
 ]
 
 // Duplicate images for seamless looping

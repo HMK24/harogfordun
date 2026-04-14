@@ -9,6 +9,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'imag
 // so 900px physical is more than enough. Services are square tiles ~380 CSS px.
 const jobs = [
   { dir: 'portfolio/hair', glob: /\.jpe?g$/i, width: 900, quality: 55, format: 'avif', replaceOriginal: true },
+  { dir: 'portfolio', glob: /\.jpe?g$/i, width: 900, quality: 55, format: 'avif', replaceOriginal: true },
   { dir: 'owners', files: ['RS - NB.png'], width: 900, quality: 60, format: 'avif', replaceOriginal: true },
   { dir: 'owners', files: ['Ólöf Eir NB.avif'], width: 700, quality: 60, format: 'avif', replaceOriginal: false },
   { dir: 'services', glob: /\.avif$/i, width: 800, quality: 55, format: 'avif', replaceOriginal: false },
