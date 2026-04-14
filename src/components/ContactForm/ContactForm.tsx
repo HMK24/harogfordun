@@ -140,14 +140,6 @@ function VerkefniSelect({ register, errors }: {
   )
 }
 
-const SERVICE_LABELS: Record<ServiceType, string> = {
-  '': '',
-  ferming: 'Ferming',
-  brudkaup: 'Brúðkaup',
-  adrir: 'Aðrir viðburðir',
-  umsogn: 'Umsögn',
-}
-
 export default function ContactForm({ onReview }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -177,49 +169,38 @@ export default function ContactForm({ onReview }: ContactFormProps) {
     setSubmitError('')
 
     try {
-      // Map internal field names to proper Icelandic labels for the email
-      const fieldLabels: Record<string, string> = {
-        thjonusta: 'Þjónusta',
-        dagsetning: 'Dagsetning Prúfu',
-        dagsetningBrudkaups: 'Dagsetning Brúðkaups',
-        stadsetning: 'Staðsetning',
-        nafn: 'Nafn tengiliðs',
-        netfang: 'Netfang',
-        simi: 'Símanúmer',
-        nafnBrudar: 'Nafn brúðar',
-        nafnBrudguma: 'Nafn brúðguma',
-        postnumer: 'Póstnúmer',
-        fjoldi: 'Fjöldi viðskiptavina',
-        skilabod: 'Skilaboð',
-        verkefni: 'Verkefni',
+      const payload = {
+        kind: isReview ? 'review' : 'inquiry',
+        service: data.thjonusta,
+        verkefni: data.verkefni,
+        nafn: data.nafn,
+        nafnBarns: data.nafnBarns,
+        nafnBrudar: data.nafnBrudar,
+        nafnBrudguma: data.nafnBrudguma,
+        netfang: data.netfang,
+        simi: data.simi,
+        dagsetning: data.dagsetning,
+        dagsetningBrudkaups: data.dagsetningBrudkaups,
+        stadsetning: data.stadsetning,
+        postnumer: data.postnumer,
+        fjoldi: data.fjoldi,
+        skilabod: data.skilabod,
+        umsognVidburdur: data.umsognVidburdur,
+        umsognVerkefni: data.umsognVerkefni,
+        stjornur: data.stjornur,
+        umsogn: data.umsogn,
+        botcheck: '',
       }
 
-      const labeledData: Record<string, string> = {}
-      for (const [key, value] of Object.entries(data)) {
-        if (value) {
-          const label = fieldLabels[key] || key
-          labeledData[label] = value as string
-        }
-      }
-
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: '4eb7741f-5263-48cb-8d1f-6588f8883398',
-          subject: isReview
-            ? 'Ný umsögn'
-            : `Ný fyrirspurn - ${SERVICE_LABELS[data.thjonusta]}`,
-          from_name: data.nafn,
-          replyto: data.netfang || undefined,
-          ...labeledData,
-          botcheck: '',
-        }),
+        body: JSON.stringify(payload),
       })
 
-      const result = await response.json()
+      const result = await response.json().catch(() => ({}))
 
-      if (result.success) {
+      if (response.ok && result.success) {
         if (isReview && onReview) {
           const rating = parseInt(data.stjornur, 10)
           onReview({
