@@ -23,6 +23,8 @@ const owners = [
     image: '/images/owners/Ólöf Eir NB.avif',
     bio: 'Hárgreiðslukona með **6 ára reynslu í hársnyrti**. Ég hef haft mikinn áhuga á hári frá unga aldri og hef séð um hárgreiðslur á vinum og vandamönnum af fullri alvöru **frá því árið 2020** þar til ég lét að lokum drauminn rætast og útskrifaðist frá **Hárakademíunni vorið 2024** og lauk **sveinsprófi haustið sama ár**. Ég sérhæfi mig í **brúðargreiðslu**, **fermingargreiðslu**, **klippingu** og **litun**.\n\nÉg legg einstaka áherslu á **vandvirkni, gæði** og að veita **persónulega og hlýja þjónustu**. Fyrir mér snýst hárgreiðsla ekki bara um að gera hárið fallegt – heldur að láta hverjum og einum líða **vel og öruggum** með sitt hár og útlit.',
     imageFirst: false,
+    // Tímabundið falið – verður skipt út fyrir annan starfsmann
+    hidden: true,
   },
 ]
 
@@ -31,7 +33,7 @@ export default function AboutSection() {
     <section id="um-okkur" className={styles.section}>
       <SectionHeading title="UM OKKUR" />
       <div className={styles.container}>
-        {owners.map((owner, index) => (
+        {owners.filter((owner) => !owner.hidden).map((owner, index) => (
           <motion.div
             key={owner.name}
             className={`${styles.row} ${owner.imageFirst ? styles.imageLeft : styles.imageRight}`}
